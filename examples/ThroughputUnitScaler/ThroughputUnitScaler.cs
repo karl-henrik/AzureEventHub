@@ -5,6 +5,7 @@ using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Description;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -45,7 +46,7 @@ namespace ThroughputUnitScaler
                 eventHubNamespaceName: config["eventHubNamespaceName"]);
         }
 
-        internal class AppSettings
+        private class AppSettings
         {
             internal AppSettings(string clientId, string clientSecret, string tenantId, string subscriptionId, string resourcegroup, string eventHubNamespaceName)
             {
