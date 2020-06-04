@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ThroughputUnitScaler
 {
-    public static class Function1
+    public static class ThroughputUnitScaler
     {
         [FunctionName("ThroughputUnitScaler")]
         public static async Task Run([TimerTrigger("*/30 * * * * *")]TimerInfo _, ILogger log, ExecutionContext context)
