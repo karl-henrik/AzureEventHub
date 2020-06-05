@@ -29,7 +29,6 @@ namespace ThroughputUnitScaler
                 .ConfigureAwait(false);
         }
 
-
         private static class AppSettings
         {
             private static string clientId;
