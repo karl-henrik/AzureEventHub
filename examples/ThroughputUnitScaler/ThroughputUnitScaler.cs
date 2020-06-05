@@ -27,7 +27,7 @@ namespace ThroughputUnitScaler
                 .Update()
                 .WithCurrentThroughputUnits(2)
                 .ApplyAsync()
-                .ConfigureAwait(false);            
+                .ConfigureAwait(false);
         }
 
         private static class AppSettings
