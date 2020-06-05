@@ -30,14 +30,25 @@ namespace ThroughputUnitScaler
         }
 
 
-        private class AppSettings
+        private static class AppSettings
         {
-            internal static string ClientId => Environment.GetEnvironmentVariable("clientId");
-            internal static string ClientSecret => Environment.GetEnvironmentVariable("clientSecret");
-            internal static string TenantId => Environment.GetEnvironmentVariable("tenantId");
-            internal static string SubscriptionId => Environment.GetEnvironmentVariable("subscriptionId");
-            internal static string Resourcegroup => Environment.GetEnvironmentVariable("resourcegroup");
-            internal static string EventHubNamespaceName => Environment.GetEnvironmentVariable("eventHubNamespaceName");
+            private static string clientId;
+            internal static string ClientId => clientId ?? Environment.GetEnvironmentVariable("clientId");
+
+            private static string clientSecret;
+            internal static string ClientSecret => clientSecret ?? Environment.GetEnvironmentVariable("clientSecret");
+
+            private static string tenantId;
+            internal static string TenantId => tenantId ?? Environment.GetEnvironmentVariable("tenantId");
+
+            private static string subscriptionId;
+            internal static string SubscriptionId => subscriptionId ?? Environment.GetEnvironmentVariable("subscriptionId");
+
+            private static string resourcegroup;
+            internal static string Resourcegroup => resourcegroup ?? Environment.GetEnvironmentVariable("resourcegroup");
+
+            private static string eventHubNamespaceName;
+            internal static string EventHubNamespaceName => eventHubNamespaceName ?? Environment.GetEnvironmentVariable("eventHubNamespaceName");
         }
     }
 }
