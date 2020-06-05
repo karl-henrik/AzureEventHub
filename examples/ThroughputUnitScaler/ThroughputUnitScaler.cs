@@ -14,7 +14,7 @@ namespace ThroughputUnitScaler
     public static class ThroughputUnitScaler
     {
         [FunctionName("ThroughputUnitScaler")]
-        public static async Task Run([TimerTrigger("*/30 * * * * *")]TimerInfo _, ILogger log, ExecutionContext context)
+        public static async Task Run([TimerTrigger("*/30 * * * * *")]TimerInfo timer, ILogger log, ExecutionContext context)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
