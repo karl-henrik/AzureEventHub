@@ -18,10 +18,9 @@ namespace ThroughputUnitScaler
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
-            AppSettings appSettings = Startup(context);
-            var azureCredentials = new AzureCredentialsFactory().FromServicePrincipal(appSettings.ClientId, appSettings.ClientSecret, appSettings.TenantId, AzureEnvironment.AzureGlobalCloud);
-            var azureResourceManager = Azure.Authenticate(azureCredentials).WithSubscription(appSettings.SubscriptionId);
-            var eventHubNamespace = azureResourceManager.EventHubNamespaces.GetByResourceGroup(appSettings.Resourcegroup, appSettings.EventHubNamespaceName);
+            var azureCredentials = new AzureCredentialsFactory().FromServicePrincipal(AppSettings.ClientId, AppSettings.ClientSecret, AppSettings.TenantId, AzureEnvironment.AzureGlobalCloud);
+            var azureResourceManager = Azure.Authenticate(azureCredentials).WithSubscription(AppSettings.SubscriptionId);
+            var eventHubNamespace = azureResourceManager.EventHubNamespaces.GetByResourceGroup(AppSettings.Resourcegroup, AppSettings.EventHubNamespaceName);
 
             await eventHubNamespace
                 .Update()
@@ -30,41 +29,15 @@ namespace ThroughputUnitScaler
                 .ConfigureAwait(false);
         }
 
-        private static AppSettings Startup(ExecutionContext context)
-        {
-            var config = new ConfigurationBuilder()
-                            .SetBasePath(context.FunctionAppDirectory)
-                            .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                            .AddEnvironmentVariables()
-                            .Build();
-
-            return new AppSettings(clientId: config["clientId"],
-                clientSecret: config["clientSecret"],
-                tenantId: config["tenantId"],
-                subscriptionId: config["subscriptionId"],
-                resourcegroup: config["resourcegroup"],
-                eventHubNamespaceName: config["eventHubNamespaceName"]);
-        }
 
         private class AppSettings
         {
-            internal AppSettings(string clientId, string clientSecret, string tenantId, string subscriptionId, string resourcegroup, string eventHubNamespaceName)
-            {
-                ClientId = clientId;
-                ClientSecret = clientSecret;
-                TenantId = tenantId;
-                SubscriptionId = subscriptionId;
-                Resourcegroup = resourcegroup;
-                EventHubNamespaceName = eventHubNamespaceName;
-            }
-
-            internal string ClientId { get; }
-            internal string ClientSecret { get; }
-            internal string TenantId { get; }
-            internal string SubscriptionId { get; }
-            internal string Resourcegroup { get; }
-            internal string EventHubNamespaceName { get; }
+            internal static string ClientId => Environment.GetEnvironmentVariable("clientId");
+            internal static string ClientSecret => Environment.GetEnvironmentVariable("clientSecret");
+            internal static string TenantId => Environment.GetEnvironmentVariable("tenantId");
+            internal static string SubscriptionId => Environment.GetEnvironmentVariable("subscriptionId");
+            internal static string Resourcegroup => Environment.GetEnvironmentVariable("resourcegroup");
+            internal static string EventHubNamespaceName => Environment.GetEnvironmentVariable("eventHubNamespaceName");
         }
     }
 }
-
