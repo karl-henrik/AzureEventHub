@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using System.Threading.Tasks;
 using Microsoft.Azure.Management.EventHub.Fluent;
 using Microsoft.Azure.Management.Fluent;
@@ -14,7 +15,7 @@ namespace ThroughputUnitScaler
     public static class ThroughputUnitScaler
     {
         [FunctionName("ThroughputUnitScaler")]
-        public static async Task Run([TimerTrigger("*/30 * * * * *")]TimerInfo timer, ILogger log, ExecutionContext context)
+        public static async Task Run([TimerTrigger("*/30 * * * * *")]TimerInfo timer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -26,28 +27,28 @@ namespace ThroughputUnitScaler
                 .Update()
                 .WithCurrentThroughputUnits(2)
                 .ApplyAsync()
-                .ConfigureAwait(false);
+                .ConfigureAwait(false);            
         }
 
         private static class AppSettings
         {
             private static string clientId;
-            internal static string ClientId => clientId ?? Environment.GetEnvironmentVariable("clientId");
+            internal static string ClientId => clientId ??= Environment.GetEnvironmentVariable("clientId");
 
             private static string clientSecret;
-            internal static string ClientSecret => clientSecret ?? Environment.GetEnvironmentVariable("clientSecret");
+            internal static string ClientSecret => clientSecret ??= Environment.GetEnvironmentVariable("clientSecret");
 
             private static string tenantId;
-            internal static string TenantId => tenantId ?? Environment.GetEnvironmentVariable("tenantId");
+            internal static string TenantId => tenantId ??= Environment.GetEnvironmentVariable("tenantId");
 
             private static string subscriptionId;
-            internal static string SubscriptionId => subscriptionId ?? Environment.GetEnvironmentVariable("subscriptionId");
+            internal static string SubscriptionId => subscriptionId ??= Environment.GetEnvironmentVariable("subscriptionId");
 
             private static string resourcegroup;
-            internal static string Resourcegroup => resourcegroup ?? Environment.GetEnvironmentVariable("resourcegroup");
+            internal static string Resourcegroup => resourcegroup ??= Environment.GetEnvironmentVariable("resourcegroup");
 
             private static string eventHubNamespaceName;
-            internal static string EventHubNamespaceName => eventHubNamespaceName ?? Environment.GetEnvironmentVariable("eventHubNamespaceName");
+            internal static string EventHubNamespaceName => eventHubNamespaceName ??= Environment.GetEnvironmentVariable("eventHubNamespaceName");
         }
     }
 }
