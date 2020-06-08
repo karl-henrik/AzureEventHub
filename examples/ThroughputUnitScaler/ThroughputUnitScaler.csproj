@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
+    <ProjectGuid>B4417B1E-2F23-4DEC-9E27-BD69715FFDBD</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.33.0" />
