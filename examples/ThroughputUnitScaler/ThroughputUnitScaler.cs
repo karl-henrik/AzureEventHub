@@ -1,13 +1,9 @@
 using System;
-using System.Diagnostics.Tracing;
 using System.Threading.Tasks;
-using Microsoft.Azure.Management.EventHub.Fluent;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Description;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace ThroughputUnitScaler
